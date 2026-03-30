@@ -22,7 +22,7 @@ const pool = mysql.createPool({
 // ----------------------------
 pool.getConnection()
   .then(connection => {
-    console.log('MySQL Connected ✅');
+    console.log('MySQL Connected ');
 
     connection.execute("ALTER TABLE visits ADD COLUMN reason TEXT")
       .then(() => {
