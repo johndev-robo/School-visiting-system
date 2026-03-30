@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../components/header') %>
+<body>
+    <%- include('../components/navbar') %>
+    
+    <div class="container">
+        <section class="hero">
+            <h1>Boarding School Visiting System</h1>
+            <p>Manage student visits with ease and transparency</p>
+            
+            <% if (!session || !session.userId) { %>
+                <div class="cta-buttons">
+                    <a href="/auth/login" class="btn btn-primary">Login</a>
+                    <a href="/auth/register" class="btn btn-secondary">Register</a>
+                </div>
+            <% } else { %>
+                <div class="cta-buttons">
+                    <a href="/dashboard" class="btn btn-primary">Go to Dashboard</a>
+                </div>
+            <% } %>
+        </section>
+        
+        <section class="features">
+            <h2>Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <img src="/images/scheduling.jpg" alt="Easy Scheduling" class="feature-image">
+                    <h3>Easy Scheduling</h3>
+                    <p>Parents can easily schedule visits with their children through our intuitive interface</p>
+                </div>
+                <div class="feature-card">
+                    <img src="/images/realtime access.jpg" alt="Real-Time Updates" class="feature-image">
+                    <h3>Real-Time Updates</h3>
+                    <p>Get instant notifications about visit status and important updates</p>
+                </div>
+                <div class="feature-card">
+                    <img src="/images/secure access.jpg" alt="Secure Access" class="feature-image">
+                    <h3>Secure Access</h3>
+                    <p>Role-based access control ensures secure and appropriate permissions for all users</p>
+                </div>
+                <div class="feature-card">
+                    <img src="/images/visit managment.jpg" alt="Visit Management" class="feature-image">
+                    <h3>Visit Management</h3>
+                    <p>Admins can efficiently manage and track all visits with comprehensive tools</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="about">
+            <h2>About Our System</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Our Boarding School Visiting System revolutionizes the way parents, tutors, and school staff manage student visits. Built with modern technology and user-friendly interfaces, our platform ensures seamless communication and coordination between all stakeholders.</p>
+                    <p>Whether you're a parent planning a visit, a tutor coordinating schedules, or school administration managing security protocols, our system provides the tools you need to make the visiting process smooth, secure, and efficient.</p>
+                </div>
+                <div class="about-stats">
+                    <div class="stat">
+                        <h3 class="stat-number" data-target="500" data-suffix="+">0</h3>
+                        <p>Successful Visits</p>
+                    </div>
+                    <div class="stat">
+                        <h3 class="stat-number" data-target="100" data-suffix="%">0</h3>
+                        <p>Secure & Safe</p>
+                    </div>
+                    <div class="stat">
+                        <h3 class="stat-number" data-target="24" data-suffix="/7">0</h3>
+                        <p>Access Available</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="how-it-works">
+            <h2>How It Works</h2>
+            <div class="steps-grid">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Register Account</h3>
+                    <p>Create your account with appropriate role (Parent, Tutor, or Admin)</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Submit Request</h3>
+                    <p>Parents submit visit requests with preferred dates and times</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Get Approval</h3>
+                    <p>School administration reviews and approves visit requests</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Visit & Connect</h3>
+                    <p>Enjoy quality time with your child in a secure environment</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="testimonials">
+            <h2>What Our Users Say</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial">
+                    <p>"This system has made visiting my daughter so much easier. No more phone calls and paperwork!"</p>
+                    <cite>- John Smith
+                        , Parent</cite>
+                </div>
+                <div class="testimonial">
+                    <p>"As a tutor, I can now coordinate visits efficiently and focus more on teaching."</p>
+                    <cite>- Michael Oduor, Tutor</cite>
+                </div>
+                <div class="testimonial">
+                    <p>"The security features give us peace of mind while maintaining smooth operations."</p>
+                    <cite>- Dr. judy Wanjiru , School Administrator</cite>
+                </div>
+            </div>
+        </section>
+        
+        <section class="cta-section">
+            <h2>Ready to Get Started?</h2>
+            <p>Join thousands of families who trust our system for their boarding school visits.</p>
+            <% if (!session || !session.userId) { %>
+                <div class="cta-buttons">
+                    <a href="/auth/register" class="btn btn-primary">Create Account</a>
+                    <a href="/auth/login" class="btn btn-secondary">Sign In</a>
+                </div>
+            <% } else { %>
+                <div class="cta-buttons">
+                    <a href="/dashboard" class="btn btn-primary">Go to Dashboard</a>
+                </div>
+            <% } %>
+        </section>
+    </div>
+    
+    <%- include('../components/footer') %>
+    <script src="/js/main.js"></script>
+</body>
+</html>

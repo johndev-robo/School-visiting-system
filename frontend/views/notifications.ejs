@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../components/header') %>
+<body>
+    <%- include('../components/navbar') %>
+
+    <div class="container">
+        <h2>My Notifications</h2>
+
+        <% if (notifications && notifications.length > 0) { %>
+            <div class="notifications-list">
+                <% notifications.forEach(notification => { %>
+                    <div class="notification-item <%= notification.isRead ? 'read' : 'unread' %>">
+                        <div class="notification-content">
+                            <p><%= notification.message %></p>
+                            <small><%= new Date(notification.createdAt).toLocaleDateString() %></small>
+                        </div>
+                        <% if (!notification.isRead) { %>
+                            <button class="btn btn-small btn-primary mark-read-btn"
+                                    data-id="<%= notification.id %>"
+                                    onclick="markAsRead(<%= notification.id %>)">
+                                Mark as Read
+                            </button>
+                        <% } %>
+                    </div>
+                <% }); %>
+            </div>
+        <% } else { %>
+            <div class="no-notifications">
+                <p>You have no notifications at this time.</p>
+            </div>
+        <% } %>
+    </div>
+
+    <%- include('../components/footer') %>
+    <script src="/js/main.js"></script>
+    <script>
+        function markAsRead(notificationId) {
+            fetch('/notifications/mark-read', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ id: notificationId })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Reload the page to update the UI
+                    location.reload();
+                } else {
+                    alert('Failed to mark notification as read');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while marking the notification as read');
+            });
+        }
+    </script>
+</body>
+</html>

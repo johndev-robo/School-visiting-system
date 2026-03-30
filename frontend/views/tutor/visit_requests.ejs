@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../../components/header') %>
+<body>
+    <%- include('../../components/navbar') %>
+    
+    <div class="container">
+        <h2>Visit Requests - Pending Approval</h2>
+        <p>Review and approve or reject student visit requests from parents.</p>
+        <div class="requests-section">
+            <% if (visits && visits.length > 0) { %>
+                <table class="visits-table">
+                    <thead>
+                        <tr>
+                            <th>Parent Name</th>
+                            <th>Student Name</th>
+                            <th>Visit Date</th>
+                            <th>Visit Time</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% visits.forEach(visit => { %>
+                            <tr>
+                                <td><%= visit.parent %></td>
+                                <td><%= visit.student %></td>
+                                <td><%= visit.date %></td>
+                                <td><%= visit.time %></td>
+                                <td><span class="status <%= visit.status.toLowerCase() %>"><%= visit.status %></span></td>
+                                <td>
+                                    <button class="btn btn-success" onclick="updateVisitStatus(<%= visit.id %>, 'Approved')">Approve</button>
+                                    <button class="btn btn-danger" onclick="updateVisitStatus(<%= visit.id %>, 'Rejected')">Reject</button>
+                                </td>
+                            </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+            <% } else { %>
+                <p>No pending visit requests at this time.</p>
+            <% } %>
+        </div>
+    </div>
+    
+    <%- include('../../components/footer') %>
+    <script src="/js/main.js"></script>
+</body>
+</html>

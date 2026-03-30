@@ -1,0 +1,40 @@
+# PRD: Kenyan Boarding School Visiting System (KBSVS)
+
+## 1. Project Overview
+KBSVS is a digital platform designed to streamline and secure the visiting day process in Kenyan boarding schools. It replaces manual paper logs with a digital system that manages scheduling, approvals, and security checks.
+
+## 2. User Personas
+*   **Admins (School Staff/Principals):** Manage the overall schedule, set rules for visiting days, and monitor security logs.
+*   **Parents/Guardians:** Schedule visits, receive digital gate passes, and communicate with the school.
+*   **Students:** View their scheduled visits and receive updates.
+*   **Security Personnel:** Verify gate passes at the school entrance.
+
+## 3. Core Features
+### Admin Dashboard
+*   **Visiting Day Management:** Create and edit visiting day schedules (e.g., "Half-term Visiting," "Monthly Sunday Visit").
+*   **Request Management:** Review, approve, or decline visiting requests from parents.
+*   **User Management:** Maintain records for students and their registered guardians.
+*   **Reporting:** Generate logs of who entered/exited and at what time.
+
+### Parent Portal
+*   **Visit Scheduling:** Select a student and a valid visiting date to request a slot.
+*   **Digital Gate Pass:** Receive a QR-code-based pass once a visit is approved.
+*   **Notifications:** Get SMS/Email alerts for approval status.
+
+### Student Portal
+*   **My Visits:** See a calendar view of upcoming parent visits.
+*   **Profile:** Ensure their guardian information is up to date.
+
+### Security Checkpoint
+*   **Scan & Verify:** Use a mobile or tablet interface to scan parent QR codes.
+*   **Manual Entry:** Search for students/parents if the digital pass isn't available.
+
+## 4. Architecture & Technical Flow
+1.  **Request Flow:** Parent requests visit -> Admin approves/denies -> Parent notified.
+2.  **Access Flow:** Parent arrives -> Security scans QR code -> System logs entry -> System logs exit upon departure.
+3.  **Data Consistency:** Centralized database for students, parents, and visit logs.
+
+## 5. Visual Direction
+*   **Colors:** Professional and trustworthy (e.g., Navy Blue, Forest Green) with clear status indicators (Success/Warning/Error).
+*   **Typography:** Highly legible sans-serif fonts (e.g., Inter, Roboto).
+*   **Layout:** Clean, card-based designs for dashboards; simple, mobile-friendly forms for parents.

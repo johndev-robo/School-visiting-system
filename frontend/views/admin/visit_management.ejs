@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../../components/header') %>
+<body>
+    <%- include('../../components/navbar') %>
+    
+    <div class="container">
+        <h2>Visit Management</h2>
+        
+        <% if (visits && visits.length > 0) { %>
+            <table class="visits-table">
+                <thead>
+                    <tr>
+                        <th>Parent</th>
+                        <th>Student</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Status</th>
+                        <th>Reason</th>
+                        <% if (session && session.userRole === 'Admin') { %>
+                        <th>Actions</th>
+                        <% } %>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% visits.forEach(visit => { %>
+                        <tr>
+                            <td><%= visit.parent %></td>
+                            <td><%= visit.student %></td>
+                            <td><%= visit.date %></td>
+                            <td><%= visit.time %></td>
+                            <td><span class="status <%= String(visit.status || '').toLowerCase() %>"><%= visit.status %></span></td>
+                            <td><%= visit.reason %></td>
+                            <% if (session && session.userRole === 'Admin') { %>
+                            <td>
+                                <select class="status-select" onchange="updateVisitStatus(<%= visit.id %>, this.value); this.value = '<%= visit.status %>';">
+                                    <option value="Pending" <%= visit.status === 'Pending' ? 'selected' : '' %>>Pending</option>
+                                    <option value="Approved" <%= visit.status === 'Approved' ? 'selected' : '' %>>Approved</option>
+                                    <option value="Rejected" <%= visit.status === 'Rejected' ? 'selected' : '' %>>Rejected</option>
+                                    <option value="Completed" <%= visit.status === 'Completed' ? 'selected' : '' %>>Completed</option>
+                                </select>
+                            </td>
+                            <% } %>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        <% } else { %>
+            <p>No visits found.</p>
+        <% } %>
+    </div>
+    
+    <%- include('../../components/footer') %>
+    <script src="/js/main.js"></script>
+</body>
+</html>

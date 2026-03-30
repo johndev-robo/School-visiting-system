@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request a Visit - Smart Visiting Hours</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .visit-form-container {
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .form-group select,
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            box-sizing: border-box;
+            font-family: inherit;
+        }
+        
+        .form-group select:focus,
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.1);
+        }
+
+        .policy-info {
+            background: #e7f3ff;
+            border-left: 4px solid #007bff;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .policy-info h4 {
+            margin-top: 0;
+            color: #0056b3;
+        }
+
+        .policy-info p {
+            margin: 5px 0;
+        }
+
+        .time-recommendations {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            border: 1px solid #eee;
+        }
+
+        .time-recommendations h5 {
+            margin-top: 0;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .time-slot {
+            display: inline-block;
+            padding: 8px 12px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .time-slot:hover {
+            background: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+
+        .warning {
+            color: #dc3545;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        .success {
+            color: #28a745;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .btn-submit {
+            background: #007bff;
+            color: white;
+        }
+
+        .btn-submit:hover {
+            background: #0056b3;
+        }
+
+        .info-box {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            padding: 12px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+
+        .error-box {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            padding: 12px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        small {
+            color: #666;
+            display: block;
+            margin-top: 4px;
+        }
+
+        .security-badge {
+            display: inline-block;
+            background: #e7f3ff;
+            color: #0056b3;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 13px;
+            margin-bottom: 20px;
+            border-left: 3px solid #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <%- include('../../components/navbar') %>
+    
+    <div class="visit-form-container">
+        <h1>Request a Visit</h1>
+        <div class="security-badge">🔒 Only your registered children appear in the selection below</div>
+        
+        <div id="errorBox" class="error-box"></div>
+        <div id="infoBox" class="info-box" style="display: none;"></div>
+        
+        <form id="visitForm">
+            <!-- Student Selection - SECURITY ENFORCED -->
+            <div class="form-group">
+                <label for="studentId">Select Your Child *</label>
+                <select id="studentId" name="studentId" required>
+                    <option value="">Choose a student...</option>
+                    <% if (students && students.length > 0) { %>
+                        <% students.forEach(student => { %>
+                            <option value="<%= student.id %>"><%= student.name %> - <%= student.class %></option>
+                        <% }); %>
+                    <% } %>
+                </select>
+                <small>If your child is not listed, please contact the school to establish the parent-child relationship.</small>
+            </div>
+
+            <!-- Visit Occasion - DETERMINES TIME RULES -->
+            <div class="form-group">
+                <label for="occasion">Purpose of Visit *</label>
+                <select id="occasion" name="occasion" required onchange="updatePolicyInfo()">
+                    <option value="">Select purpose...</option>
+                    <% if (occasions) { %>
+                        <% occasions.forEach(occ => { %>
+                            <option value="<%= occ %>"><%= occ %></option>
+                        <% }); %>
+                    <% } %>
+                </select>
+            </div>
+
+            <!-- Policy Info Display -->
+            <div id="policyInfo" class="policy-info" style="display: none;">
+                <h4 id="policyTitle"></h4>
+                <div id="policyDetails"></div>
+            </div>
+
+            <!-- Visit Date -->
+            <div class="form-group">
+                <label for="date">Visit Date *</label>
+                <input type="date" id="date" name="date" required onchange="updateTimeRecommendations()">
+                <small>Choose a date to see available time windows</small>
+            </div>
+
+            <!-- Time Recommendations -->
+            <div id="timeRecommendations" class="time-recommendations" style="display: none;">
+                <h5>Recommended Times for This Date</h5>
+                <div id="recommendedTimes"></div>
+            </div>
+
+            <!-- Start Time -->
+            <div class="form-group">
+                <label for="startTime">Start Time *</label>
+                <input type="time" id="startTime" name="startTime" required onchange="calculateDuration()">
+                <small>Auto-filled based on visit purpose. You can adjust if needed.</small>
+            </div>
+
+            <!-- End Time -->
+            <div class="form-group">
+                <label for="endTime">End Time *</label>
+                <input type="time" id="endTime" name="endTime" required onchange="calculateDuration()">
+                <small id="durationInfo">Auto-filled based on visit purpose. You can adjust if needed.</small>
+            </div>
+
+            <!-- Notes -->
+            <div class="form-group">
+                <label for="reason">Additional Notes (optional)</label>
+                <textarea id="reason" name="reason" rows="3" placeholder="E.g., need to discuss academic progress, dropping medication, etc."></textarea>
+            </div>
+
+            <!-- Submit -->
+            <div class="button-group">
+                <button type="submit" class="btn-submit">Submit Visit Request</button>
+            </div>
+        </form>
+    </div>
+    
+    <%- include('../../components/footer') %>
+
+    <script>
+        // Update policy info when occasion changes
+        async function updatePolicyInfo() {
+            const occasion = document.getElementById('occasion').value;
+            const policyInfo = document.getElementById('policyInfo');
+            
+            if (!occasion) {
+                policyInfo.style.display = 'none';
+                return;
+            }
+
+            try {
+                const response = await fetch('/visits/policies');
+                const policies = await response.json();
+                const policy = policies.find(p => p.visit_occasion === occasion);
+
+                if (policy) {
+                    // Auto-fill start and end times based on policy
+                    document.getElementById('startTime').value = policy.start_time.slice(0, 5); // HH:MM format
+                    document.getElementById('endTime').value = policy.end_time.slice(0, 5); // HH:MM format
+                    
+                    // Calculate and display duration
+                    calculateDuration();
+
+                    // Show success message for auto-fill
+                    showInfo(`✅ Times auto-filled for ${occasion}: ${policy.start_time.slice(0,5)} - ${policy.end_time.slice(0,5)}`);
+
+                    document.getElementById('policyTitle').textContent = `Visiting Policy: ${occasion}`;
+                    const days = policy.allowed_days.split(',').map(d => d.trim()).join(', ');
+                    
+                    let details = `
+                        <p><strong>📅 Allowed Days:</strong> ${days}</p>
+                        <p><strong>🕐 Time Window:</strong> ${policy.start_time.slice(0,5)} - ${policy.end_time.slice(0,5)}</p>
+                        <p><strong>⏱️ Max Duration:</strong> ${policy.max_duration_minutes} minutes</p>
+                    `;
+                    
+                    if (policy.requires_advance_notice_hours > 0) {
+                        details += `<p><strong>📢 Advance Notice:</strong> ${policy.requires_advance_notice_hours} hours required</p>`;
+                    }
+                    if (policy.requires_teacher_present) {
+                        details += `<p><strong>👨‍🏫 Teacher Present:</strong> Yes, teacher will be available</p>`;
+                    }
+                    
+                    document.getElementById('policyDetails').innerHTML = details;
+                    policyInfo.style.display = 'block';
+                }
+            } catch (error) {
+                console.error('Error loading policies:', error);
+            }
+        }
+
+        // Get time recommendations
+        async function updateTimeRecommendations() {
+            const occasion = document.getElementById('occasion').value;
+            const date = document.getElementById('date').value;
+            const recommendationsDiv = document.getElementById('timeRecommendations');
+
+            if (!occasion || !date) {
+                recommendationsDiv.style.display = 'none';
+                return;
+            }
+
+            try {
+                const response = await fetch(`/visits/time-recommendations?occasion=${encodeURIComponent(occasion)}&date=${date}`);
+                const data = await response.json();
+
+                if (!data.allowed) {
+                    document.getElementById('recommendedTimes').innerHTML = 
+                        `<div class="warning">⚠️ ${data.reason}</div>`;
+                    recommendationsDiv.style.display = 'block';
+                    return;
+                }
+
+                const startTime = data.startTime;
+                const endTime = data.endTime;
+                
+                let html = '<p style="color: #666; font-size: 13px; margin-bottom: 10px;">Click a time to auto-fill start time:</p>';
+                const [startHour, startMin] = startTime.split(':').map(Number);
+                const [endHour, endMin] = endTime.split(':').map(Number);
+                
+                for (let h = startHour; h <= endHour; h++) {
+                    for (let m = 0; m < 60; m += 30) {
+                        if (h === endHour && m > endMin) break;
+                        const timeStr = `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+                        html += `<span class="time-slot" onclick="setStartTime('${timeStr}')">${timeStr}</span>`;
+                    }
+                }
+                
+                document.getElementById('recommendedTimes').innerHTML = html;
+                recommendationsDiv.style.display = 'block';
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        // Set start time from recommendation
+        function setStartTime(time) {
+            document.getElementById('startTime').value = time;
+            calculateDuration();
+        }
+
+        // Calculate duration
+        function calculateDuration() {
+            const start = document.getElementById('startTime').value;
+            const end = document.getElementById('endTime').value;
+            const info = document.getElementById('durationInfo');
+
+            if (!start || !end) return;
+
+            const [startH, startM] = start.split(':').map(Number);
+            const [endH, endM] = end.split(':').map(Number);
+            const duration = (endH * 60 + endM) - (startH * 60 + startM);
+
+            if (duration <= 0) {
+                info.innerHTML = '<span class="warning">⚠️ End time must be after start time</span>';
+            } else if (duration >= 60) {
+                info.innerHTML = `<span class="success">✓ Duration: ${Math.floor(duration/60)}h ${duration%60}m</span>`;
+            } else {
+                info.innerHTML = `<span class="success">✓ Duration: ${duration} minutes</span>`;
+            }
+        }
+
+        // Form submission
+        document.getElementById('visitForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const studentId = document.getElementById('studentId').value;
+            const occasion = document.getElementById('occasion').value;
+            const date = document.getElementById('date').value;
+            const startTime = document.getElementById('startTime').value;
+            const endTime = document.getElementById('endTime').value;
+            const reason = document.getElementById('reason').value;
+
+            if (!studentId || !occasion || !date || !startTime || !endTime) {
+                showError('Please fill in all required fields');
+                return;
+            }
+
+            try {
+                const response = await fetch('/visits/request', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        studentId: parseInt(studentId),
+                        date,
+                        occasion,
+                        startTime,
+                        endTime,
+                        reason: reason || null
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    showInfo('✅ Visit request submitted! You will receive email confirmation.');
+                    setTimeout(() => window.location.href = '/visits/status', 1500);
+                } else {
+                    showError(data.error || 'Failed to submit request');
+                }
+            } catch (error) {
+                showError('Error submitting request: ' + error.message);
+            }
+        });
+
+        function showError(message) {
+            const box = document.getElementById('errorBox');
+            box.textContent = '❌ ' + message;
+            box.style.display = 'block';
+        }
+
+        function showInfo(message) {
+            const box = document.getElementById('infoBox');
+            box.textContent = message;
+            box.style.display = 'block';
+        }
+
+        // Check if students loaded
+        window.addEventListener('load', () => {
+            const select = document.getElementById('studentId');
+            if (select.options.length <= 1) {
+                showError('No children linked to your account. Contact school administration.');
+            }
+        });
+    </script>
+</body>
+</html>

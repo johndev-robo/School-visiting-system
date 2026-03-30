@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Academic Estate | Admin Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-secondary-fixed-variant": "#005307",
+              "error-container": "#ffdad6",
+              "tertiary-fixed": "#ffe17a",
+              "inverse-surface": "#2f3033",
+              "surface-bright": "#faf9fd",
+              "secondary": "#006e0c",
+              "on-primary": "#ffffff",
+              "primary-container": "#002147",
+              "surface-tint": "#465f88",
+              "background": "#faf9fd",
+              "on-secondary-container": "#00730d",
+              "primary-fixed-dim": "#aec7f6",
+              "tertiary-fixed-dim": "#ebc30d",
+              "on-primary-fixed-variant": "#2d476f",
+              "on-error": "#ffffff",
+              "secondary-container": "#8ff780",
+              "secondary-fixed": "#92fa83",
+              "tertiary-container": "#cca800",
+              "on-primary-fixed": "#001b3d",
+              "on-error-container": "#93000a",
+              "on-tertiary-fixed": "#231b00",
+              "on-secondary": "#ffffff",
+              "on-primary-container": "#708ab5",
+              "outline": "#74777f",
+              "surface-container-low": "#f4f3f7",
+              "primary-fixed": "#d6e3ff",
+              "surface-container-highest": "#e3e2e6",
+              "outline-variant": "#c4c6cf",
+              "error": "#ba1a1a",
+              "surface-variant": "#e3e2e6",
+              "surface-dim": "#dad9dd",
+              "tertiary": "#715c00",
+              "on-secondary-fixed": "#002201",
+              "surface-container": "#efedf1",
+              "on-tertiary-container": "#4d3e00",
+              "inverse-primary": "#aec7f6",
+              "surface": "#faf9fd",
+              "on-background": "#1a1b1e",
+              "inverse-on-surface": "#f1f0f4",
+              "surface-container-high": "#e9e7eb",
+              "on-surface": "#1a1b1e",
+              "secondary-fixed-dim": "#77dd6a",
+              "primary": "#000a1e",
+              "surface-container-lowest": "#ffffff",
+              "on-surface-variant": "#44474e",
+              "on-tertiary": "#ffffff",
+              "on-tertiary-fixed-variant": "#554500"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        .glass-nav { background: rgba(250, 249, 253, 0.7); backdrop-filter: blur(20px); }
+    </style>
+</head>
+<body class="bg-surface text-on-surface antialiased">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 flex justify-between items-center px-6 py-3 w-full bg-[#faf9fd]/70 backdrop-blur-md shadow-[0_12px_32px_rgba(0,33,71,0.06)]">
+<div class="flex items-center gap-4">
+<span class="text-xl font-black tracking-tighter text-[#002147]">The Academic Estate</span>
+</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-[#002147] font-bold border-b-2 border-[#002147] font-['Inter'] antialiased tracking-tight" href="#">Dashboard</a>
+<a class="text-[#44474e] hover:bg-[#f4f3f7] transition-colors font-['Inter'] antialiased tracking-tight" href="#">Schedules</a>
+<a class="text-[#44474e] hover:bg-[#f4f3f7] transition-colors font-['Inter'] antialiased tracking-tight" href="#">Students</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-[#44474e] hover:bg-[#f4f3f7] rounded-full transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 text-[#44474e] hover:bg-[#f4f3f7] rounded-full transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+</button>
+<img alt="User profile avatar" class="w-8 h-8 rounded-full border border-outline-variant" data-alt="Professional portrait of a male school administrator in a navy suit with soft natural lighting and office background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhB1AsHgdgrmPilganjSQGqegZGRR_EJ0kB9_IftLh1teNyUans6FuThM_2p_dm-eUzfKhnxigmnigc_GvUm-nZf6nVwPBN9QrQ5EccGiFNaQZaV5SOZ-P9weccM0MMzbOE9lzoQx-KD8TZEfVGjRcayctT0gVm_lrKhO05XWxROaBlc2bM1UX_jDTr_3_Ht8ykJGPE3iIkzDiicqEJnJfY8m2nIMHr0jy4Dh-pHQZlYLgFWS4tUoEXZO9fb3Jv6LRWGlWaJkUbyrC"/>
+</div>
+</nav>
+<!-- SideNavBar (Hidden on Mobile) -->
+<aside class="hidden md:flex flex-col h-screen w-64 fixed left-0 top-0 py-6 bg-[#f4f3f7] z-40 mt-[56px]">
+<div class="px-8 mb-8">
+<div class="flex items-center gap-3 mb-1">
+<div class="w-10 h-10 bg-primary-container rounded-xl flex items-center justify-center text-white">
+<span class="material-symbols-outlined" data-icon="school">school</span>
+</div>
+<div>
+<p class="font-bold text-[#002147] text-sm">Main Campus</p>
+<p class="text-[10px] text-[#44474e] uppercase tracking-wider">Academic Estate</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="bg-white text-[#002147] rounded-l-full ml-4 pl-4 py-3 font-bold shadow-sm flex items-center gap-3" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="text-[#44474e] px-8 py-3 flex items-center gap-3 hover:bg-[#faf9fd] transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
+<span>Schedules</span>
+</a>
+<a class="text-[#44474e] px-8 py-3 flex items-center gap-3 hover:bg-[#faf9fd] transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="qr_code_scanner">qr_code_scanner</span>
+<span>Gate Passes</span>
+</a>
+<a class="text-[#44474e] px-8 py-3 flex items-center gap-3 hover:bg-[#faf9fd] transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="history_edu">history_edu</span>
+<span>User Logs</span>
+</a>
+<a class="text-[#44474e] px-8 py-3 flex items-center gap-3 hover:bg-[#faf9fd] transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span>Students</span>
+</a>
+<a class="text-[#44474e] px-8 py-3 flex items-center gap-3 hover:bg-[#faf9fd] transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span>Reports</span>
+</a>
+</nav>
+<div class="px-6 mb-6">
+<button class="w-full bg-gradient-to-r from-primary to-primary-container text-white py-3 px-4 rounded-xl font-semibold flex items-center justify-center gap-2 active:scale-95 transition-transform">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+                New Visit Request
+            </button>
+</div>
+<div class="pt-6 border-t border-outline-variant/10">
+<a class="text-[#44474e] px-8 py-3 flex items-center gap-3 hover:bg-[#faf9fd] transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+<a class="text-[#44474e] px-8 py-3 flex items-center gap-3 hover:bg-[#faf9fd] transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span>Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="md:ml-64 mt-[64px] pb-24 md:pb-8 min-h-screen px-6 pt-8">
+<!-- Dashboard Header -->
+<header class="mb-10">
+<h1 class="text-[2.75rem] font-extrabold tracking-tight text-primary leading-tight">Administrative Overview</h1>
+<p class="text-on-surface-variant body-md max-w-2xl mt-2">Welcome back. You have <span class="text-secondary font-bold">14 pending visiting requests</span> and 2 events scheduled for this weekend.</p>
+</header>
+<!-- Bento Grid Stats & Actions -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10">
+<div class="md:col-span-2 bg-surface-container-lowest rounded-xl p-6 shadow-[0_12px_32px_rgba(0,33,71,0.06)] relative overflow-hidden flex flex-col justify-between min-h-[200px]">
+<div class="z-10">
+<p class="text-[10px] font-semibold uppercase tracking-widest text-secondary mb-2">Next Campus Event</p>
+<h2 class="text-2xl font-bold text-primary">Form 4 Visiting Day</h2>
+<p class="text-on-surface-variant body-md">Saturday, Oct 14th • 09:00 AM</p>
+</div>
+<div class="flex gap-3 z-10">
+<button class="bg-secondary-container text-on-secondary-container px-4 py-2 rounded-lg font-bold text-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="edit">edit</span> Manage
+                    </button>
+<button class="bg-surface-container-high text-on-surface-variant px-4 py-2 rounded-lg font-bold text-sm">View Map</button>
+</div>
+<div class="absolute -right-8 -bottom-8 opacity-10">
+<span class="material-symbols-outlined text-[120px]" data-icon="calendar_today">calendar_today</span>
+</div>
+</div>
+<div class="bg-surface-container-low rounded-xl p-6 border-l-4 border-secondary flex flex-col justify-center">
+<p class="text-on-surface-variant text-sm font-medium">Active Visits</p>
+<div class="flex items-end gap-2 mt-1">
+<span class="text-4xl font-black text-primary tracking-tighter">84</span>
+<span class="text-secondary text-xs font-bold pb-1 flex items-center"><span class="material-symbols-outlined text-xs" data-icon="trending_up">trending_up</span> +12%</span>
+</div>
+<p class="text-[10px] text-on-surface-variant mt-2">Compared to last month</p>
+</div>
+<div class="bg-surface-container-low rounded-xl p-6 border-l-4 border-tertiary flex flex-col justify-center">
+<p class="text-on-surface-variant text-sm font-medium">Pending Requests</p>
+<div class="flex items-end gap-2 mt-1">
+<span class="text-4xl font-black text-primary tracking-tighter">14</span>
+</div>
+<p class="text-[10px] text-on-surface-variant mt-2">Requires immediate action</p>
+</div>
+</div>
+<!-- Request Management Section -->
+<section class="mb-10">
+<div class="flex items-center justify-between mb-6">
+<h3 class="headline-sm font-bold text-primary">Visiting Requests</h3>
+<div class="flex gap-2">
+<button class="bg-surface-container-highest text-on-surface-variant px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-surface-variant transition-colors">Export CSV</button>
+<button class="bg-surface-container-highest text-on-surface-variant px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-surface-variant transition-colors">Filter</button>
+</div>
+</div>
+<div class="bg-surface-container-low rounded-xl overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-high/50 text-on-surface-variant text-[10px] uppercase tracking-widest font-bold">
+<th class="px-6 py-4">Student Name</th>
+<th class="px-6 py-4">Visitor</th>
+<th class="px-6 py-4">Status</th>
+<th class="px-6 py-4 text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10">
+<!-- Row 1 -->
+<tr class="bg-surface-container-lowest hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<img alt="Student" class="w-10 h-10 rounded-full object-cover" data-alt="Close up portrait of a young male student in a green school sweater looking directly at camera with a slight smile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDU9O54gG-j99kosIVKSY7ZeG_Rm2HT_8kfg8Uxh81XarkDcKwj9z7b7UdB3EavVG9Jrl_Wp7A6WvRzJg_LDa518GeT68_iJzvUbPr8JFpm50OwzM9ez9xNZNdmAOqZ0eOwyEBVEqYuvhSFk3M7Ye-7_9hTKYTjjEuS9G7pmdRNvraWVMPg_fqyE9ug3RQnH0GGaGr7gv66dtNEPEyaENl8I6lZPO1WE5AWgtVd-tWqvZSaFTArW67w-Mwv720V4BummmK-4Z543S0K"/>
+<div>
+<p class="font-bold text-primary text-sm">Kevin Mutua</p>
+<p class="text-xs text-on-surface-variant">Form 3 East • Room 12</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<p class="text-sm font-medium text-on-surface">Sarah Mutua</p>
+<p class="text-[10px] text-on-surface-variant">Mother • 0712 345 678</p>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-[10px] font-bold bg-tertiary-container text-on-tertiary-container">
+<span class="material-symbols-outlined text-xs" data-icon="pending">pending</span> PENDING
+                                    </span>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="w-8 h-8 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center"><span class="material-symbols-outlined text-sm" data-icon="check">check</span></button>
+<button class="w-8 h-8 rounded-full bg-error-container text-on-error-container flex items-center justify-center"><span class="material-symbols-outlined text-sm" data-icon="close">close</span></button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="bg-surface-container-lowest hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<img alt="Student" class="w-10 h-10 rounded-full object-cover" data-alt="Close up portrait of a female student in a formal school blazer against a blurred garden background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDG9MkoeKt0zAj008RdoF13SjaztMkRyIRzT3aQzAxkz69oAJzdPICNn7t7eDP7mFWILojzvwdvM097sDVMy86V4daLkXYDoCXcEJxCtamPDgJzkSHCJ1ZjmL_PcLaPAYOgFw1ncBynG6wTdZxMp0f4a77P5dwahqMM5KhWX-HVKEzJ4_HBL8PR5sLwHnV0kXcJspra3YK6DS8XDfZUBnP-EvbGNbRPFVs6KS2PTNXhF2sYNwoN4Xg_tJReG4IOlg0ehFkxFqcvibp-"/>
+<div>
+<p class="font-bold text-primary text-sm">Zainab Hassan</p>
+<p class="text-xs text-on-surface-variant">Form 4 West • Room 4B</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<p class="text-sm font-medium text-on-surface">Omar Hassan</p>
+<p class="text-[10px] text-on-surface-variant">Father • 0723 998 112</p>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-[10px] font-bold bg-secondary-container text-on-secondary-container">
+<span class="material-symbols-outlined text-xs" data-icon="check_circle">check_circle</span> APPROVED
+                                    </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined" data-icon="more_vert">more_vert</span></button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<!-- Asymmetric Layout: Calendar & Recent Activity -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+<!-- Recent Activity Log -->
+<div class="lg:col-span-1">
+<h3 class="headline-sm font-bold text-primary mb-6">Recent Activity</h3>
+<div class="space-y-6">
+<div class="flex gap-4 items-start border-l-2 border-secondary/20 pl-4 relative">
+<div class="absolute -left-[5px] top-0 w-2 h-2 rounded-full bg-secondary"></div>
+<div class="flex-1">
+<p class="text-sm font-bold text-primary">Security Checkpoint: Entry</p>
+<p class="text-xs text-on-surface-variant">Kevin Mutua's guest Sarah Mutua entered Gate A.</p>
+<p class="text-[10px] font-medium text-secondary mt-1 uppercase tracking-tighter">09:42 AM Today</p>
+</div>
+</div>
+<div class="flex gap-4 items-start border-l-2 border-primary-container/20 pl-4 relative">
+<div class="absolute -left-[5px] top-0 w-2 h-2 rounded-full bg-primary-container"></div>
+<div class="flex-1">
+<p class="text-sm font-bold text-primary">Admin Action: Approved</p>
+<p class="text-xs text-on-surface-variant">Zainab Hassan's request for Saturday visit was approved by Admin.</p>
+<p class="text-[10px] font-medium text-on-surface-variant mt-1 uppercase tracking-tighter">Yesterday</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Calendar / Upcoming Events Card -->
+<div class="lg:col-span-2 bg-surface-container-high rounded-3xl p-8 flex flex-col md:flex-row gap-8">
+<div class="flex-1">
+<h4 class="text-xl font-bold text-primary mb-4">October 2023</h4>
+<div class="grid grid-cols-7 gap-1 text-center text-[10px] font-bold text-on-surface-variant uppercase tracking-widest mb-4">
+<span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+</div>
+<div class="grid grid-cols-7 gap-2">
+<!-- Simplified Calendar Visualization -->
+<div class="aspect-square flex items-center justify-center text-xs text-outline-variant">25</div>
+<div class="aspect-square flex items-center justify-center text-xs text-outline-variant">26</div>
+<div class="aspect-square flex items-center justify-center text-xs text-outline-variant">27</div>
+<div class="aspect-square flex items-center justify-center text-xs text-outline-variant">28</div>
+<div class="aspect-square flex items-center justify-center text-xs text-outline-variant">29</div>
+<div class="aspect-square flex items-center justify-center text-xs font-bold text-primary">1</div>
+<div class="aspect-square flex items-center justify-center text-xs font-bold text-primary">2</div>
+<!-- ... more days ... -->
+<div class="aspect-square flex items-center justify-center text-xs font-bold bg-white rounded-lg shadow-sm border border-secondary/10 relative">
+                            14
+                            <div class="absolute bottom-1 w-1 h-1 rounded-full bg-secondary"></div>
+</div>
+<div class="aspect-square flex items-center justify-center text-xs font-bold text-primary">15</div>
+</div>
+</div>
+<div class="md:w-64 space-y-4">
+<p class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Upcoming Weekends</p>
+<div class="bg-white/50 p-4 rounded-xl border border-white/20">
+<p class="text-xs font-bold text-primary">Half-Term Break</p>
+<p class="text-[10px] text-on-surface-variant">Oct 20 - Oct 24</p>
+</div>
+<div class="bg-white/50 p-4 rounded-xl border border-white/20">
+<p class="text-xs font-bold text-primary">Prize Giving Day</p>
+<p class="text-[10px] text-on-surface-variant">Nov 04 • All Classes</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Visible on Mobile) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-end pb-4 px-6 bg-[#faf9fd]/80 backdrop-blur-xl z-50 rounded-t-[2rem] shadow-[0_-8px_24px_rgba(0,33,71,0.08)]">
+<a class="flex flex-col items-center justify-center bg-[#006e0c] text-white rounded-2xl p-3 mb-2 transform -translate-y-2" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="text-[10px] font-semibold uppercase tracking-widest mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#44474e] p-2" href="#">
+<span class="material-symbols-outlined" data-icon="event">event</span>
+<span class="text-[10px] font-semibold uppercase tracking-widest mt-1">Schedule</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#44474e] p-2" href="#">
+<span class="material-symbols-outlined" data-icon="qr_code_2">qr_code_2</span>
+<span class="text-[10px] font-semibold uppercase tracking-widest mt-1">Scanner</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#44474e] p-2" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="text-[10px] font-semibold uppercase tracking-widest mt-1">Profile</span>
+</a>
+</nav>
+</body></html>

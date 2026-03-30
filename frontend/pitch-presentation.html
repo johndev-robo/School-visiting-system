@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boarding School Visiting System - Pitch Presentation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .presentation-container {
+            width: 100%;
+            max-width: 1000px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .slide {
+            display: none;
+            min-height: 600px;
+            padding: 60px 40px;
+            animation: fadeIn 0.5s ease-in;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            position: relative;
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Slide Specific Styles */
+        .slide-1 {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            text-align: center;
+        }
+
+        .slide-2 {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .slide-3 {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .slide-4 {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+
+        .slide-5 {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+
+        .slide-6 {
+            background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
+        }
+
+        .slide-7 {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+        }
+
+        h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            font-weight: 800;
+        }
+
+        h2 {
+            font-size: 2.8em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .subtitle {
+            font-size: 1.5em;
+            margin-bottom: 40px;
+            opacity: 0.95;
+        }
+
+        .tagline {
+            font-size: 2em;
+            font-weight: 300;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        .content-box {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            margin: 15px 0;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .feature-item {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 20px;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .feature-item h3 {
+            font-size: 1.3em;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .emoji {
+            font-size: 1.5em;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .tech-badge {
+            background: rgba(255, 255, 255, 0.25);
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .impact-list {
+            text-align: left;
+            font-size: 1.2em;
+            line-height: 1.8;
+            margin: 20px 0;
+        }
+
+        .impact-list li {
+            margin: 15px 0;
+            list-style: none;
+            padding-left: 40px;
+            position: relative;
+        }
+
+        .impact-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        .cta-button {
+            background: white;
+            color: #667eea;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.2em;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        .controls {
+            background: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-button:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+        }
+
+        .nav-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .slide-counter {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #667eea;
+        }
+
+        .progress-bar {
+            height: 4px;
+            background: #e0e0e0;
+            width: 100%;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transition: width 0.3s ease;
+        }
+
+        .flow-diagram {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 30px 0;
+            font-size: 1.1em;
+        }
+
+        .flow-box {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 15px 20px;
+            border-radius: 10px;
+            flex: 1;
+            text-align: center;
+            margin: 0 10px;
+        }
+
+        .arrow {
+            font-size: 2em;
+            margin: 0 10px;
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                padding: 40px 20px;
+                min-height: 500px;
+            }
+
+            h1 {
+                font-size: 2.5em;
+            }
+
+            h2 {
+                font-size: 2em;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .flow-diagram {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .arrow {
+                transform: rotate(90deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation-container">
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <!-- SLIDE 1: Title Slide -->
+        <div class="slide slide-1 active">
+            <h1>🎓 Boarding School Visiting System</h1>
+            <p class="tagline">Smart Technology Meets School Management</p>
+            <div class="subtitle">
+                <p style="font-size: 1.3em; margin: 20px 0;">Revolutionizing how parents connect with their children in boarding schools</p>
+            </div>
+            <p style="font-size: 1.2em; opacity: 0.85; margin-top: 40px;">Presented by: Your Amazing Team</p>
+        </div>
+
+        <!-- SLIDE 2: The Problem -->
+        <div class="slide slide-2">
+            <h2>🔴 The Problem</h2>
+            <div class="content-box">
+                <p style="font-size: 1.3em; line-height: 1.8; margin: 20px 0;">
+                    Boarding school families face real challenges:
+                </p>
+                <ul class="impact-list">
+                    <li>Parents struggle to schedule visits with their children</li>
+                    <li>Schools manage hundreds of visit requests manually</li>
+                    <li>Security teams can't efficiently track who enters campus</li>
+                    <li>Communication between all parties is scattered and slow</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: Our Solution -->
+        <div class="slide slide-3">
+            <h2>💡 Our Amazing Solution</h2>
+            <div class="content-box">
+                <p class="subtitle" style="color: white; margin-bottom: 20px;">An all-in-one web platform that makes visit management instant, secure, and hassle-free!</p>
+                <div class="flow-diagram">
+                    <div class="flow-box">Parents Request Visits</div>
+                    <div class="arrow">→</div>
+                    <div class="flow-box">School Approves</div>
+                    <div class="arrow">→</div>
+                    <div class="flow-box">Security Logs Entry</div>
+                </div>
+            </div>
+            <div class="content-box" style="text-align: center; margin-top: 30px;">
+                <p style="font-size: 1.2em;">✨ Real-time notifications, secure authentication, and complete transparency!</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: Key Features -->
+        <div class="slide slide-4">
+            <h2>⭐ Key Features That Wow</h2>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <h3><span class="emoji">📱</span>User Roles</h3>
+                    <p>Parents, Tutors, Security Officers, and Admins - each with custom dashboards</p>
+                </div>
+                <div class="feature-item">
+                    <h3><span class="emoji">📅</span>Smart Scheduling</h3>
+                    <p>Book visits with date/time selection and automatic conflict detection</p>
+                </div>
+                <div class="feature-item">
+                    <h3><span class="emoji">🔔</span>Real-Time Alerts</h3>
+                    <p>Instant notifications keep everyone in the loop 24/7</p>
+                </div>
+                <div class="feature-item">
+                    <h3><span class="emoji">🔐</span>Secure Access</h3>
+                    <p>Password protection and session management keeps data safe</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 5: Technology Stack -->
+        <div class="slide slide-5">
+            <h2>🚀 Built With Cool Tech</h2>
+            <div class="content-box">
+                <p style="font-size: 1.2em; margin-bottom: 20px;">Modern web technologies powering the platform:</p>
+                <div class="tech-stack">
+                    <div class="tech-badge">Node.js & Express.js</div>
+                    <div class="tech-badge">MySQL Database</div>
+                    <div class="tech-badge">EJS Templates</div>
+                    <div class="tech-badge">bcrypt Security</div>
+                    <div class="tech-badge">JWT Authentication</div>
+                    <div class="tech-badge">RESTful APIs</div>
+                </div>
+            </div>
+            <div class="content-box">
+                <p style="font-size: 1.1em; text-align: center;">
+                    🎯 The same technologies used by billions of people online!
+                </p>
+            </div>
+        </div>
+
+        <!-- SLIDE 6: Impact & Benefits -->
+        <div class="slide slide-6">
+            <h2>📈 Real Impact</h2>
+            <ul class="impact-list">
+                <li>✨ Parents can request visits in 30 seconds</li>
+                <li>✨ Schools process approvals instantly</li>
+                <li>✨ Security logs visits automatically</li>
+                <li>✨ Students feel more connected to family</li>
+                <li>✨ Schools operate more efficiently</li>
+                <li>✨ Complete audit trail for compliance</li>
+            </ul>
+        </div>
+
+        <!-- SLIDE 7: Call to Action -->
+        <div class="slide slide-7">
+            <h2>🌟 The Future is Here</h2>
+            <div class="content-box">
+                <p style="font-size: 1.3em; margin: 20px 0; text-align: center;">
+                    This is just the beginning! Imagine adding:
+                </p>
+                <ul class="impact-list">
+                    <li>📸 AI-powered photo verification</li>
+                    <li>🤖 Smart scheduling suggestions</li>
+                    <li>🌍 Multi-language support</li>
+                    <li>📊 Advanced analytics dashboards</li>
+                </ul>
+            </div>
+            <div style="text-align: center; margin-top: 30px;">
+                <p style="font-size: 1.4em; font-weight: 700;">💪 You can build the next generation of school technology!</p>
+                <button class="cta-button">Start Coding Today!</button>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls">
+            <button class="nav-button" id="prevBtn" onclick="changeSlide(-1)">← Previous</button>
+            <span class="slide-counter"><span id="currentSlide">1</span> / 7</span>
+            <button class="nav-button" id="nextBtn" onclick="changeSlide(1)">Next →</button>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 7;
+
+        function showSlide(n) {
+            const slides = document.querySelectorAll('.slide');
+            
+            if (n > totalSlides) {
+                currentSlide = totalSlides;
+            }
+            if (n < 1) {
+                currentSlide = 1;
+            }
+
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[currentSlide - 1].classList.add('active');
+
+            document.getElementById('currentSlide').textContent = currentSlide;
+            document.getElementById('prevBtn').disabled = currentSlide === 1;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides;
+            
+            const progress = (currentSlide / totalSlides) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+        }
+
+        function changeSlide(n) {
+            currentSlide += n;
+            showSlide(currentSlide);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'ArrowLeft') changeSlide(-1);
+            if (event.key === 'ArrowRight') changeSlide(1);
+        });
+
+        // Initialize
+        showSlide(currentSlide);
+    </script>
+</body>
+</html>

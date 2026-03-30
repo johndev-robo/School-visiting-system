@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../../components/header') %>
+<body>
+    <%- include('../../components/navbar') %>
+    
+    <div class="container">
+        <h2>User Management</h2>
+        
+        <div class="action-bar">
+            <button class="btn btn-primary" onclick="showAddUserForm()">Add New User</button>
+        </div>
+        
+        <!-- Add User Modal -->
+        <div id="addUserModal" class="modal" style="display:none;">
+            <div class="modal-content">
+                <span class="close" onclick="closeAddUserForm()">&times;</span>
+                <h3>Add New User</h3>
+                <form action="/users/create" method="POST">
+                    <label>Name: <input type="text" name="name" required></label>
+                    <label>Email: <input type="email" name="email" required></label>
+                    <label>Password: <input type="password" name="password" required></label>
+                    <label>Role:
+                        <select name="role" required>
+                            <option value="Admin">Admin</option>
+                            <option value="Parent">Parent</option>
+                            <option value="Tutor">Tutor</option>
+                            <option value="Security Officer">Security Officer</option>
+                        </select>
+                    </label>
+                    <label>Phone: <input type="text" name="phone"></label>
+                    <button type="submit" class="btn btn-primary">Create User</button>
+                </form>
+            </div>
+        </div>
+        
+        <% if (users && users.length > 0) { %>
+            <table class="users-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Phone</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% users.forEach(user => { %>
+                        <tr>
+                            <td><%= user.name %></td>
+                            <td><%= user.email %></td>
+                            <td><span class="badge <%= user.role.toLowerCase() %>"><%= user.role %></span></td>
+                            <td><%= user.phone || 'N/A' %></td>
+                            <td>
+                                <button class="btn-small" onclick="showEditUserForm('<%= user.id %>', '<%= user.name %>', '<%= user.email %>', '<%= user.role %>', '<%= user.phone || '' %>')">Edit</button>
+                                <a href="/users/delete/<%= user.id %>" class="btn-small btn-danger" onclick="return confirm('Delete this user?')">Delete</a>
+                            </td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        <% } else { %>
+            <p>No users found.</p>
+        <% } %>
+    </div>
+    
+    <%- include('../../components/footer') %>
+    <script src="/js/main.js"></script>
+    
+    <!-- Edit User Modal -->
+    <div id="editUserModal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeEditUserForm()">&times;</span>
+            <h3>Edit User</h3>
+            <form action="/users/update" method="POST">
+                <input type="hidden" name="id" id="editUserId">
+                <label>Name: <input type="text" name="name" id="editUserName" required></label>
+                <label>Email: <input type="email" name="email" id="editUserEmail" required></label>
+                <label>Role:
+                    <select name="role" id="editUserRole" required>
+                        <option value="Admin">Admin</option>
+                        <option value="Parent">Parent</option>
+                        <option value="Tutor">Tutor</option>
+                        <option value="Security Officer">Security Officer</option>
+                    </select>
+                </label>
+                <label>Phone: <input type="text" name="phone" id="editUserPhone"></label>
+                <button type="submit" class="btn btn-primary">Update User</button>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+        function showAddUserForm() {
+            document.getElementById('addUserModal').style.display = 'block';
+        }
+        
+        function closeAddUserForm() {
+            document.getElementById('addUserModal').style.display = 'none';
+        }
+        
+        function showEditUserForm(id, name, email, role, phone) {
+            document.getElementById('editUserId').value = id;
+            document.getElementById('editUserName').value = name;
+            document.getElementById('editUserEmail').value = email;
+            document.getElementById('editUserRole').value = role;
+            document.getElementById('editUserPhone').value = phone;
+            document.getElementById('editUserModal').style.display = 'block';
+        }
+        
+        function closeEditUserForm() {
+            document.getElementById('editUserModal').style.display = 'none';
+        }
+        
+        window.onclick = function(event) {
+            let addModal = document.getElementById('addUserModal');
+            let editModal = document.getElementById('editUserModal');
+            if (event.target === addModal) addModal.style.display = 'none';
+            if (event.target === editModal) editModal.style.display = 'none';
+        }
+    </script>
+</body>
+</html>

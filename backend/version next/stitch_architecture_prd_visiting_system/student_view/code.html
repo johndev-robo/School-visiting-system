@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Academic Estate | Student Portal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-secondary-fixed-variant": "#005307",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed": "#ffe17a",
+                        "inverse-surface": "#2f3033",
+                        "surface-bright": "#faf9fd",
+                        "secondary": "#006e0c",
+                        "on-primary": "#ffffff",
+                        "primary-container": "#002147",
+                        "surface-tint": "#465f88",
+                        "background": "#faf9fd",
+                        "on-secondary-container": "#00730d",
+                        "primary-fixed-dim": "#aec7f6",
+                        "tertiary-fixed-dim": "#ebc30d",
+                        "on-primary-fixed-variant": "#2d476f",
+                        "on-error": "#ffffff",
+                        "secondary-container": "#8ff780",
+                        "secondary-fixed": "#92fa83",
+                        "tertiary-container": "#cca800",
+                        "on-primary-fixed": "#001b3d",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-fixed": "#231b00",
+                        "on-secondary": "#ffffff",
+                        "on-primary-container": "#708ab5",
+                        "outline": "#74777f",
+                        "surface-container-low": "#f4f3f7",
+                        "primary-fixed": "#d6e3ff",
+                        "surface-container-highest": "#e3e2e6",
+                        "outline-variant": "#c4c6cf",
+                        "error": "#ba1a1a",
+                        "surface-variant": "#e3e2e6",
+                        "surface-dim": "#dad9dd",
+                        "tertiary": "#715c00",
+                        "on-secondary-fixed": "#002201",
+                        "surface-container": "#efedf1",
+                        "on-tertiary-container": "#4d3e00",
+                        "inverse-primary": "#aec7f6",
+                        "surface": "#faf9fd",
+                        "on-background": "#1a1b1e",
+                        "inverse-on-surface": "#f1f0f4",
+                        "surface-container-high": "#e9e7eb",
+                        "on-surface": "#1a1b1e",
+                        "secondary-fixed-dim": "#77dd6a",
+                        "primary": "#000a1e",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface-variant": "#44474e",
+                        "on-tertiary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#554500"
+                    },
+                    fontFamily: {
+                        "headline": ["Inter"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-nav {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface antialiased pb-24 md:pb-0 md:pl-64">
+<!-- SideNavBar (Desktop Only) -->
+<nav class="hidden md:flex h-screen w-64 fixed left-0 top-0 overflow-y-auto bg-surface-container-low text-primary flex-col py-6 z-40 transition-all">
+<div class="px-8 mb-10">
+<h1 class="font-headline font-bold text-primary tracking-tight text-xl">Main Campus</h1>
+<p class="text-xs text-on-surface-variant font-medium">Academic Estate</p>
+</div>
+<div class="flex flex-col flex-grow">
+<!-- Dashboard active mapping -->
+<a class="bg-surface-container-lowest dark:bg-primary-container text-primary dark:text-white rounded-l-full ml-4 pl-4 py-3 font-bold shadow-sm flex items-center gap-3" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="text-on-surface-variant px-8 py-3 flex items-center gap-3 hover:bg-surface-bright transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
+<span>Schedules</span>
+</a>
+<a class="text-on-surface-variant px-8 py-3 flex items-center gap-3 hover:bg-surface-bright transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="qr_code_scanner">qr_code_scanner</span>
+<span>Gate Passes</span>
+</a>
+<a class="text-on-surface-variant px-8 py-3 flex items-center gap-3 hover:bg-surface-bright transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="history_edu">history_edu</span>
+<span>User Logs</span>
+</a>
+<a class="text-on-surface-variant px-8 py-3 flex items-center gap-3 hover:bg-surface-bright transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span>Students</span>
+</a>
+<a class="text-on-surface-variant px-8 py-3 flex items-center gap-3 hover:bg-surface-bright transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span>Reports</span>
+</a>
+</div>
+<div class="mt-auto px-8 border-t border-outline-variant/10 pt-6">
+<a class="text-on-surface-variant py-2 flex items-center gap-3 hover:opacity-70" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+<a class="text-on-surface-variant py-2 flex items-center gap-3 hover:opacity-70" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span>Logout</span>
+</a>
+</div>
+</nav>
+<!-- TopAppBar (Hybrid Context) -->
+<header class="fixed top-0 w-full z-30 bg-surface/70 dark:bg-primary/70 backdrop-blur-md shadow-[0_12px_32px_rgba(0,33,71,0.06)] md:left-64 md:w-[calc(100%-16rem)] px-6 py-3 flex justify-between items-center">
+<div class="flex items-center gap-4">
+<img alt="User Profile" class="w-10 h-10 rounded-full object-cover" data-alt="portrait of a young african student with a friendly expression and short hair wearing a navy school uniform" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCITwwiTuMjA4Nodu-cFDo6lOA4GYKAYtxNcan4jUezOfInq5pn5qBW1hRDosqdYTYDF4RjXRy6T2OsOmCMWh2-2O_rmkNtKSof_3fLDRXPNpFw_SgmjLtZR8GMscfTu3foeSgTz-NFXQebR5OIH5cdgPw6zMh-lz0xjFGKQQ7jeTWQAtNm7DbA-wmQIGwvTNd_xh62bnepDhaUw8nic27a1QgH0OE0YqNciFJN4757jpFQBQ5RuaXfAu0bvjlSzTAjl4mnnSOS63v"/>
+<div>
+<h2 class="font-headline font-black tracking-tighter text-primary text-lg">The Academic Estate</h2>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-full hover:bg-surface-container-low text-on-surface-variant transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-container-low text-on-surface-variant transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="pt-24 px-6 md:px-10 max-w-7xl mx-auto space-y-10">
+<!-- Hero Section / Welcome -->
+<section>
+<div class="relative overflow-hidden rounded-xl bg-gradient-to-br from-primary to-primary-container p-8 md:p-12 text-white shadow-2xl">
+<div class="relative z-10">
+<h3 class="text-display-md font-headline font-bold tracking-tight mb-2">Jambo, Mwangi!</h3>
+<p class="text-primary-fixed font-medium max-w-md opacity-90">Welcome back to your stewardship dashboard. You have one upcoming visit this Saturday.</p>
+</div>
+<!-- Decorative element -->
+<div class="absolute top-[-20%] right-[-10%] w-64 h-64 bg-secondary/20 rounded-full blur-3xl"></div>
+<div class="absolute bottom-[-30%] left-[10%] w-48 h-48 bg-tertiary/10 rounded-full blur-2xl"></div>
+</div>
+</section>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- My Upcoming Visits (Large Bento Card) -->
+<div class="lg:col-span-8 flex flex-col gap-6">
+<div class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_12px_32px_rgba(0,33,71,0.06)] border-l-4 border-secondary">
+<div class="flex justify-between items-center mb-6">
+<h4 class="text-headline-sm font-headline font-bold text-primary">My Upcoming Visits</h4>
+<button class="text-secondary text-sm font-semibold flex items-center gap-1 hover:underline">
+                            View Calendar <span class="material-symbols-outlined text-sm" data-icon="open_in_new">open_in_new</span>
+</button>
+</div>
+<!-- Visit Card (Glassmorphism inspired) -->
+<div class="bg-surface-container-low p-5 rounded-xl border border-outline-variant/10 flex flex-col md:flex-row gap-6 items-center">
+<div class="w-full md:w-32 h-32 bg-primary rounded-xl flex flex-col items-center justify-center text-white shrink-0">
+<span class="text-3xl font-black">14</span>
+<span class="text-xs font-bold uppercase tracking-widest">Oct, Sat</span>
+</div>
+<div class="flex-grow space-y-2">
+<div class="flex items-center gap-2">
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-xs" data-icon="check_circle">check_circle</span> Approved
+                                </span>
+<span class="text-on-surface-variant text-xs font-medium">10:00 AM — 4:00 PM</span>
+</div>
+<h5 class="text-xl font-bold text-primary">Mama Beatrice &amp; Baba John</h5>
+<p class="text-on-surface-variant text-sm">Location: Main Campus Gazebo Area B</p>
+</div>
+<div class="flex gap-2">
+<button class="bg-white p-3 rounded-full text-primary shadow-sm hover:bg-surface transition-all">
+<span class="material-symbols-outlined" data-icon="chat">chat</span>
+</button>
+<button class="bg-white p-3 rounded-full text-primary shadow-sm hover:bg-surface transition-all">
+<span class="material-symbols-outlined" data-icon="qr_code">qr_code</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Visit History Log (Integrated) -->
+<div class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_12px_32px_rgba(0,33,71,0.06)] border-l-4 border-primary">
+<h4 class="text-headline-sm font-headline font-bold text-primary mb-6">Visit History</h4>
+<div class="space-y-4">
+<div class="flex items-center justify-between py-3 group hover:bg-surface-container-low px-2 rounded-lg transition-colors">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+</div>
+<div>
+<p class="font-bold text-primary">Auntie Sarah Mwangi</p>
+<p class="text-xs text-on-surface-variant">Sept 22, 2023 • 2 hours stay</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity" data-icon="chevron_right">chevron_right</span>
+</div>
+<div class="flex items-center justify-between py-3 group hover:bg-surface-container-low px-2 rounded-lg transition-colors">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+</div>
+<div>
+<p class="font-bold text-primary">Mama Beatrice</p>
+<p class="text-xs text-on-surface-variant">Aug 15, 2023 • Day pass visit</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Registered Guardians (Sidebar Bento Card) -->
+<div class="lg:col-span-4 space-y-6">
+<div class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_12px_32px_rgba(0,33,71,0.06)] border-l-4 border-tertiary">
+<div class="flex justify-between items-center mb-6">
+<h4 class="text-headline-sm font-headline font-bold text-primary">Guardians</h4>
+<span class="bg-tertiary-container text-on-tertiary-container px-2 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider">Verified</span>
+</div>
+<div class="space-y-6">
+<!-- Guardian 1 -->
+<div class="flex items-start gap-4">
+<img alt="Beatrice Mwangi" class="w-12 h-12 rounded-full object-cover ring-2 ring-tertiary/20" data-alt="portrait of a mature african woman in a colorful traditional headwrap with a warm, proud smile against a soft bokeh background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQheQC62lyaKqQ9XHacwMgT2GOCv5O5o5BDc2seOLUh97sSQUjXXb38QGOx1akqjFBgHMJnKM1ayN9wp3qZOayo3Wh-vxFj546hx0gc2XhGYKhKuSYqCppLNhNesKgQEA3EgXazK_4BIttpn-2RvFGugKL3DRrStj6zFepm7OTtgZpv_9vQ_EwQCfjUPj39bhYck7D8JnzTn-RYA23H4o0B3sR7Wit6t3tCI42JtOlR-eHSopQoHaq5RrsGfobQP0CQDfeixxfF8rb"/>
+<div class="flex-grow">
+<p class="font-bold text-primary leading-tight">Beatrice Mwangi</p>
+<p class="text-xs text-on-surface-variant mb-2">Primary Guardian (Mother)</p>
+<div class="flex gap-2">
+<a class="text-secondary hover:text-on-secondary-container" href="tel:+"><span class="material-symbols-outlined text-lg" data-icon="call">call</span></a>
+<a class="text-secondary hover:text-on-secondary-container" href="mailto:#"><span class="material-symbols-outlined text-lg" data-icon="mail">mail</span></a>
+</div>
+</div>
+</div>
+<!-- Guardian 2 -->
+<div class="flex items-start gap-4">
+<img alt="John Mwangi" class="w-12 h-12 rounded-full object-cover ring-2 ring-tertiary/20" data-alt="middle aged african man with silver hair and glasses wearing a crisp white shirt with a kind expression" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAe4qMkn63kSRV4ivDC6dnUwsHiWmkQD0T0aLq7xZM9FZDCwtYcvS7crZ7F1b_x57_HuCm-BQsRIfAzgSoer4vQc744QaxJkUVByFF6FtKDMJMEBR-cxD_53O6UB_2wPuGA7HGgOTXg3MWC55viwLdbRokOs2hvg_rH7B3cok83loy39BLcsgZ8lRpvc8JFl57N6gqSk8yvsAhnwG14WOG3xUlSFFOW9tf-SpVTEtJ4LD0cN36XGMeTXeNzf2xoNImoPW2u9gJcA_wM"/>
+<div class="flex-grow">
+<p class="font-bold text-primary leading-tight">John Mwangi</p>
+<p class="text-xs text-on-surface-variant mb-2">Secondary Guardian (Father)</p>
+<div class="flex gap-2">
+<a class="text-secondary hover:text-on-secondary-container" href="tel:+"><span class="material-symbols-outlined text-lg" data-icon="call">call</span></a>
+<a class="text-secondary hover:text-on-secondary-container" href="mailto:#"><span class="material-symbols-outlined text-lg" data-icon="mail">mail</span></a>
+</div>
+</div>
+</div>
+<!-- Guardian 3 -->
+<div class="flex items-start gap-4 opacity-75">
+<img alt="Sarah Mwangi" class="w-12 h-12 rounded-full object-cover grayscale" data-alt="portrait of a young african woman with braided hair and professional attire, focused and calm expression" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD7OtgW8iPIz6rK-slWmqaDGSltXRLKx4lZIGnA9J6tN_Q5Oc2iFGXg3LQjW5T6qUDap2j6JC1LTH7oRRhXS4U7YKQ4sbajbc-adutYiFJEbx18ohgkFzTcxk-MI21OnpEqe7l5EXkrHNQu2EzTRQoXm1n5dePuKd3af4p7X9ClTgdu6P2-CXfrpVICfvQS28Ys5nOk8aalRBAzljG81QPM3cIDGg5uWVzuYRk87oEQKwFf3HBqcGHH1UWKX_aMig327z7sJe3ncboH"/>
+<div class="flex-grow">
+<p class="font-bold text-primary leading-tight text-sm">Sarah Mwangi</p>
+<p class="text-[10px] text-on-surface-variant">Approved Relative (Aunt)</p>
+</div>
+</div>
+</div>
+<button class="w-full mt-8 py-3 bg-surface-container-high text-primary font-bold text-xs uppercase tracking-widest rounded-xl hover:bg-surface-container-highest transition-colors">
+                        Manage Guardians
+                    </button>
+</div>
+<!-- Quick Scan Mobile Preview (Institutional Authority) -->
+<div class="hidden lg:block bg-primary text-white p-6 rounded-xl overflow-hidden relative">
+<div class="relative z-10">
+<span class="material-symbols-outlined text-4xl mb-2" data-icon="security">security</span>
+<h5 class="text-lg font-bold mb-1">Instant Verification</h5>
+<p class="text-xs opacity-80 leading-relaxed mb-4">Display your gate pass QR code at the security checkpoint for faster processing.</p>
+<button class="bg-white text-primary px-4 py-2 rounded-lg text-xs font-black uppercase tracking-tighter hover:bg-secondary-fixed transition-colors">
+                            Show Gate Pass
+                        </button>
+</div>
+<div class="absolute bottom-[-10%] right-[-10%] opacity-10">
+<span class="material-symbols-outlined text-9xl" data-icon="qr_code_2">qr_code_2</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-end pb-4 px-6 bg-surface/80 dark:bg-primary/80 backdrop-blur-xl z-50 shadow-[0_-8px_24px_rgba(0,33,71,0.08)] rounded-t-[2rem]">
+<!-- Home is Active -->
+<a class="flex flex-col items-center justify-center bg-secondary text-white rounded-2xl p-3 mb-2 transform -translate-y-2 transition-all active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="text-[10px] font-semibold uppercase tracking-widest mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 transition-all hover:opacity-80" href="#">
+<span class="material-symbols-outlined" data-icon="event">event</span>
+<span class="text-[10px] font-semibold uppercase tracking-widest mt-1">Schedule</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 transition-all hover:opacity-80" href="#">
+<span class="material-symbols-outlined" data-icon="qr_code_2">qr_code_2</span>
+<span class="text-[10px] font-semibold uppercase tracking-widest mt-1">Scanner</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 transition-all hover:opacity-80" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="text-[10px] font-semibold uppercase tracking-widest mt-1">Profile</span>
+</a>
+</nav>
+<!-- Floating Action Button (FAB) - Suppression Logic: Keep on Home/Dashboard as per instructions -->
+<button class="fixed bottom-24 right-6 md:bottom-10 md:right-10 w-16 h-16 bg-gradient-to-br from-primary to-primary-container text-white rounded-full shadow-2xl flex items-center justify-center active:scale-95 transition-transform z-40">
+<span class="material-symbols-outlined text-3xl" data-icon="add">add</span>
+</button>
+</body></html>

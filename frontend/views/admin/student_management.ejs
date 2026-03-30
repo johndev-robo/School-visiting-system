@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../../components/header') %>
+<body>
+    <%- include('../../components/navbar') %>
+    
+    <div class="container">
+        <h2>Student Management</h2>
+        
+        <div class="action-bar">
+            <button class="btn btn-primary" onclick="showAddStudentForm()">Add New Student</button>
+        </div>
+        
+        <% if (students && students.length > 0) { %>
+            <table class="students-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Class</th>
+                        <th>Roll No</th>
+                        <th>Primary Guardian</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% students.forEach(student => { %>
+                        <tr>
+                            <td><%= student.name %></td>
+                            <td><%= student.class %></td>
+                            <td><%= student.roll_no || 'N/A' %></td>
+                            <td>
+                                <% if (student.guardian_name) { %>
+                                    <strong><%= student.guardian_name %></strong><br>
+                                    <small><%= student.guardian_email || 'No email' %></small>
+                                <% } else { %>
+                                    <span style="color: #999;">No guardian linked</span>
+                                <% } %>
+                            </td>
+                            <td>
+                                <button class="btn-small" onclick="showEditStudentForm('<%= student.id %>', '<%= student.name %>', '<%= student.class %>', '<%= student.roll_no || '' %>')">Edit</button>
+                                <a href="/students/<%= student.id %>" class="btn-small">View</a>
+                                <a href="/students/delete/<%= student.id %>" class="btn-small btn-danger" onclick="return confirm('Delete this student?')">Delete</a>
+                            </td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        <% } else { %>
+            <p>No students found.</p>
+        <% } %>
+    </div>
+    
+    <%- include('../../components/footer') %>
+    <script src="/js/main.js"></script>
+    
+    <!-- Add Student Modal -->
+    <div id="addStudentModal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeAddStudentForm()">&times;</span>
+            <h3>Add New Student</h3>
+            <form action="/students/create" method="POST" id="addStudentForm">
+                <div class="form-group">
+                    <label>Name: <input type="text" name="name" required></label>
+                </div>
+                <div class="form-group">
+                    <label>Class: <input type="text" name="class_name" required></label>
+                </div>
+                <div class="form-group">
+                    <label>Roll No: <input type="text" name="roll_no"></label>
+                </div>
+                
+                <!-- Parent/Guardian Selection -->
+                <div class="form-group guardian-section">
+                    <label for="guardianId">
+                        <strong>📋 Assign Parent/Guardian (Optional)</strong>
+                    </label>
+                    <select id="guardianId" name="guardianId" class="guardian-dropdown">
+                        <option value="">-- Select Parent/Guardian --</option>
+                        <optgroup label="Available Parents">
+                            <% if (parents && parents.length > 0) { %>
+                                <% parents.forEach(parent => { %>
+                                    <option value="<%= parent.id %>">
+                                        <%= parent.name %> (<%= parent.email %>)
+                                    </option>
+                                <% }); %>
+                            <% } else { %>
+                                <option disabled>No parents available</option>
+                            <% } %>
+                        </optgroup>
+                    </select>
+                    
+                    <!-- Relationship Type -->
+                    <div id="relationshipSection" style="display:none; margin-top: 10px;">
+                        <label>Relationship Type:
+                            <select name="relationship" id="relationshipSelect">
+                                <option value="Parent">Parent</option>
+                                <option value="Guardian">Guardian</option>
+                                <option value="Aunt">Aunt</option>
+                                <option value="Uncle">Uncle</option>
+                                <option value="Grandparent">Grandparent</option>
+                                <option value="Legal Guardian">Legal Guardian</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </label>
+                    </div>
+                    
+                    <!-- Primary Guardian Checkbox -->
+                    <div id="primarySection" style="display:none; margin-top: 10px;">
+                        <label>
+                            <input type="checkbox" name="isPrimary" value="on" checked>
+                            Set as Primary Contact
+                        </label>
+                    </div>
+                </div>
+
+                <div class="security-badge" style="background: #e8f5e9; padding: 10px; border-radius: 4px; margin: 10px 0; font-size: 14px;">
+                    ℹ️ <strong>Security:</strong> Guardian will only see visits from their linked student(s)
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Create Student</button>
+                <button type="button" class="btn" onclick="closeAddStudentForm()">Cancel</button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Edit Student Modal -->
+    <div id="editStudentModal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeEditStudentForm()">&times;</span>
+            <h3>Edit Student</h3>
+            <form action="/students/update" method="POST">
+                <input type="hidden" name="id" id="editStudentId">
+                <label>Name: <input type="text" name="name" id="editStudentName" required></label>
+                <label>Class: <input type="text" name="class_name" id="editStudentClass" required></label>
+                <label>Roll No: <input type="text" name="roll_no" id="editStudentRollNo"></label>
+                <button type="submit" class="btn btn-primary">Update Student</button>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+        function showAddStudentForm() {
+            document.getElementById('addStudentModal').style.display = 'block';
+        }
+        
+        function closeAddStudentForm() {
+            document.getElementById('addStudentModal').style.display = 'none';
+        }
+        
+        function showEditStudentForm(id, name, className, rollNo) {
+            document.getElementById('editStudentId').value = id;
+            document.getElementById('editStudentName').value = name;
+            document.getElementById('editStudentClass').value = className;
+            document.getElementById('editStudentRollNo').value = rollNo;
+            document.getElementById('editStudentModal').style.display = 'block';
+        }
+        
+        function closeEditStudentForm() {
+            document.getElementById('editStudentModal').style.display = 'none';
+        }
+
+        // Toggle guardian fields visibility
+        document.getElementById('guardianId')?.addEventListener('change', function() {
+            const relationshipSection = document.getElementById('relationshipSection');
+            const primarySection = document.getElementById('primarySection');
+            if (this.value) {
+                relationshipSection.style.display = 'block';
+                primarySection.style.display = 'block';
+            } else {
+                relationshipSection.style.display = 'none';
+                primarySection.style.display = 'none';
+            }
+        });
+        
+        window.onclick = function(event) {
+            let addModal = document.getElementById('addStudentModal');
+            let editModal = document.getElementById('editStudentModal');
+            if (event.target === addModal) addModal.style.display = 'none';
+            if (event.target === editModal) editModal.style.display = 'none';
+        }
+    </script>
+</body>
+</html>

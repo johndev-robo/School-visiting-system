@@ -1,0 +1,38 @@
+<!-- frontend/components/sidebar.ejs -->
+<aside class="sidebar">
+    <nav class="sidebar-nav">
+        <% if (session && session.userRole === 'Admin') { %>
+            <h3>Admin Menu</h3>
+            <ul>
+                <li><a href="/dashboard/admin">Dashboard</a></li>
+                <li><a href="/visits/all">Manage Visits</a></li>
+                <li><a href="/students">Manage Students</a></li>
+                <li><a href="/users">Manage Users</a></li>
+                <li><a href="/dashboard/admin/reports">Reports</a></li>
+            </ul>
+        <% } else if (session && session.userRole === 'Parent') { %>
+            <h3>Parent Menu</h3>
+            <ul>
+                <li><a href="/dashboard/parent">Dashboard</a></li>
+                <li><a href="/visits/status">My Visits</a></li>
+                <li><a href="/visits/request">Request Visit</a></li>
+                <li><a href="/notifications">Notifications</a></li>
+            </ul>
+        <% } else if (session && session.userRole === 'Tutor') { %>
+            <h3>Tutor Menu</h3>
+            <ul>
+                <li><a href="/dashboard/tutor">Dashboard</a></li>
+                <li><a href="/visits/all">All Visits</a></li>
+                <li><a href="/dashboard/tutor/visit-requests">Visit Requests</a></li>
+                <li><a href="/dashboard/tutor/reports">Reports</a></li>
+            </ul>
+        <% } else if (session && session.userRole === 'Security Officer') { %>
+            <h3>Security Menu</h3>
+            <ul>
+                <li><a href="/dashboard/security">Dashboard</a></li>
+                <li><a href="/security/visit-schedule">Visit Schedule</a></li>
+                <li><a href="/security/log-entry">Log Entry</a></li>
+            </ul>
+        <% } %>
+    </nav>
+</aside>
